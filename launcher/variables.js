@@ -26,11 +26,23 @@ const nwExe = (() => {
 	}
 })();
 
+const getTempFolderPath = ((...paths) => {
+	switch(process.platform) {
+		case "win32":
+			return path.join(process.env.TEMP, ...paths);
+		case "darwin":
+			return path.join(process.env.TMPDIR, ...paths);
+		case "linux":
+			return path.join("/tmp", ...paths);
+	}
+});
+
 const gamePath = path.join(steamappsBase, "Screeps");
 const modloaderJsonPath = path.join(gamePath, "hexcede.modloader.json");
 const gameNWPath = path.join(gamePath, "game.nw");
 
 module.exports = {
+	getTempFolderPath,
 	gamePath,
 	gameNWPath,
 	modloaderJsonPath,
