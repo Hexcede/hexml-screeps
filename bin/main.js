@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-const path = require("path");
-const fs = require("fs").promises;
 const readline = require("readline/promises");
 const CDP = require("chrome-remote-interface");
 const modloader = require("..");
