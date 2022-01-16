@@ -2,10 +2,6 @@ const { gamePath, gameNWPath, nwExe } = require("./variables.js");
 
 const win = nw.Window.get();
 (async () => {
-	// await new Promise((resolve, reject) => {
-	// 	setTimeout(resolve);
-	// });
-
 	const path = require("path");
 	const fs = require("fs");
 	const fsAsync = fs.promises;
@@ -33,7 +29,6 @@ const win = nw.Window.get();
 	const ext = platform === "linux" ? "tar.gz" : "zip";
 	
 	const sdkPath = "./sdk";
-	// if (flavor !== "sdk") {
 	if (!fs.existsSync(sdkPath)) {
 		win.show();
 		win.focus();
@@ -121,43 +116,10 @@ const win = nw.Window.get();
 
 			switch (ext) {
 				case "zip": {
-					// const JSZip = require("jszip");
-					// const zip = new JSZip();
-
-					// await zip.loadAsync(blob);
-					
-					// zip.forEach((relativePath, file) => {
-					// 	// Don't write absolute paths
-					// 	if (path.isAbsolute(relativePath))
-					// 		return;
-
-					// 	// Normalize path from zip
-					// 	const normalized = path.normalize(relativePath);
-
-					// 	// Don't write to parent directories
-					// 	if (normalized.indexOf("..") === 0 || normalized.indexOf("../") !== -1)
-					// 		return;
-						
-					// 	const targetPath = path.join(sdkPath, normalized);
-					// 	if (file.dir) { // Directory
-					// 		if (!fs.existsSync(targetPath))
-					// 			await fsAsync.mkdir(targetPath, { recursive: true });
-					// 	}
-					// 	else { // File
-					// 		// Create parent directory if it doesn't exist
-					// 		const targetDir = path.dirname(targetPath);
-					// 		if (!fs.existsSync(targetDir))
-					// 			await fsAsync.mkdir(targetDir, { recursive: true });
-
-					// 		// Write the file
-					// 		await fsAsync.writeFile(targetPath, await file.async("nodebuffer"));
-					// 	}
-					// });
-
 					// TODO: Validate
 
 					statusText.innerText = `Preparing to extract...`;
-					const zipfile = yauzl.open(zipPath);//yauzl.fromBuffer(await blob.arrayBuffer())
+					const zipfile = yauzl.open(zipPath);
 
 					let entryCount = 0;
 					const totalEntries = zipfile.entryCount;

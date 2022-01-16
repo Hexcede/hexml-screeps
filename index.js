@@ -52,11 +52,6 @@ const installLauncher = async () => {
 	}
 };
 const uninstallLauncher = async (deleteMods=false, deleteConfiguration=false) => {
-	// if (fs.existsSync(packageNWBakPath)) {
-	// 	await fsAsync.unlink(packageNWPath);
-	// 	await fsAsync.rename(packageNWBakPath, packageNWPath);
-	// }
-	
 	if (fs.existsSync(modloaderJsonPath)) {
 		const { installInfo } = JSON.parse(await fsAsync.readFile(modloaderJsonPath));
 		const { gameFile, modsFolder } = installInfo;
@@ -83,11 +78,8 @@ const startLauncher = async (remoteDebuggingPort) => {
 
 	// Start the launcher
 	const child = child_process.spawn(path.join(gamePath, nwExe), [remoteDebuggingPort.toString()], {
-		// detached: true,
-		// stdio: "ignore",
 		windowsHide: true
 	});
-	// child.unref();
 
 	await new Promise((resolve, reject) => {
 		child.on("error", reject);
