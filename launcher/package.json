@@ -1,0 +1,19 @@
+{
+	"main": "nw_index.html",
+	"name": "screem-loader",
+	"version": "0.0.1",
+	"window": {
+		"show": false,
+		"width": 1280,
+		"height": 900,
+		"min_width": 960,
+		"min_height": 500,
+		"icon": "icon.png"
+	},
+	"dependencies": {
+		"extract-zip": "^2.0.1",
+		"gunzip-stream": "^1.0.1",
+		"tar-stream": "^2.2.0",
+		"yauzl": "^2.10.0"
+	}
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="/icon.png" rel="icon" type="image/png">
+	<link href="vendor/fonts/roboto.css" rel="stylesheet" type="text/css">
+	<title>Screem Modloader</title>
+
+	<style>
+		body {
+			width: 100vw;
+			height: 100vh;
+			margin: 0;
+
+			background-color: rgb(27, 30, 32);
+			color: rgb(215, 215, 230);
+
+			font-family: 'Roboto', sans-serif;
+			font-size: 4vh;
+
+			flex-grow: 2;
+			display: flex;
+
+			justify-content: center;
+			align-items: center;
+		}
+
+		.horizontal-spacer {
+			display: hidden;
+			flex-grow: 1;
+		}
+	</style>
+</head>
+<body>
+	<span class="horizontal-spacer"></span>
+	<font id="status">
+		Please wait a moment...
+	</font>
+	<span class="horizontal-spacer"></span>
+
+	<script src="app.js" async></script>
+</body>
+</html>
