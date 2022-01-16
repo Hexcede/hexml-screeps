@@ -7,7 +7,9 @@ const win = nw.Window.get();
 	// });
 
 	const path = require("path");
-	const fs = require("./fs-async.js");
+	const fs = require("fs");
+	const fsAsync = fs.promises;
+
 	const child_process = require("child_process");
 	const extract = require("extract-zip");
 	const yauzl = require("yauzl");
@@ -32,7 +34,7 @@ const win = nw.Window.get();
 	
 	const sdkPath = "./sdk";
 	// if (flavor !== "sdk") {
-	if (!fs.exists(sdkPath)) {
+	if (!fs.existsSync(sdkPath)) {
 		win.show();
 		win.focus();
 
@@ -49,11 +51,11 @@ const win = nw.Window.get();
 			statusText.innerText = "Locating NW.js SDK...";
 
 			const tmp = nwPlatform === "win" ? process.env.TEMP : nwPlatform === "osx" ? process.env.TMPDIR : "/tmp";
-			if (!fs.exists(tmp))
+			if (!fs.existsSync(tmp))
 				throw new Error("Could not locate temporary directory.");
 
 			const zipPath = path.join(tmp, targetfile);
-			if (!fs.exists(zipPath)) {
+			if (!fs.existsSync(zipPath)) {
 				(await new Promise((resolve, reject) => {
 					const xhr = new XMLHttpRequest();
 					xhr.open("GET", dltarget, true);
@@ -114,8 +116,8 @@ const win = nw.Window.get();
 				statusText.innerText = "Found cached zip...";
 			}
 
-			if (!fs.exists(sdkPath))
-				await fs.mkdir(sdkPath, { recursive: true });
+			if (!fs.existsSync(sdkPath))
+				await fsAsync.mkdir(sdkPath, { recursive: true });
 
 			switch (ext) {
 				case "zip": {
@@ -139,16 +141,16 @@ const win = nw.Window.get();
 					// 	const targetPath = path.join(sdkPath, normalized);
 					// 	if (file.dir) { // Directory
 					// 		if (!fs.existsSync(targetPath))
-					// 			await fs.mkdir(targetPath, { recursive: true });
+					// 			await fsAsync.mkdir(targetPath, { recursive: true });
 					// 	}
 					// 	else { // File
 					// 		// Create parent directory if it doesn't exist
 					// 		const targetDir = path.dirname(targetPath);
 					// 		if (!fs.existsSync(targetDir))
-					// 			await fs.mkdir(targetDir, { recursive: true });
+					// 			await fsAsync.mkdir(targetDir, { recursive: true });
 
 					// 		// Write the file
-					// 		await fs.writeFile(targetPath, await file.async("nodebuffer"));
+					// 		await fsAsync.writeFile(targetPath, await file.async("nodebuffer"));
 					// 	}
 					// });
 
@@ -173,7 +175,7 @@ const win = nw.Window.get();
 				case "tar.gz": {
 					statusText.innerText = `Preparing to extract...`;
 
-					const stats = await fs.stat(zipPath);
+					const stats = await fsAsync.stat(zipPath);
 					const totalSize = stats.size;
 
 					await new Promise((resolve, reject) => {
@@ -193,8 +195,8 @@ const win = nw.Window.get();
 									switch (type) {
 										case "file": {
 											const entrydir = path.dirname(filename)
-											if (!fs.exists(entrydir))
-												await fs.mkdir(entrydir, { recursive: true });
+											if (!fs.existsSync(entrydir))
+												await fsAsync.mkdir(entrydir, { recursive: true });
 											
 											const total = size;
 											let progress = 0;
@@ -210,7 +212,7 @@ const win = nw.Window.get();
 											
 											stream.pipe(fs.createWriteStream(filename));
 											stream.on("end", async () => {
-												await fs.chmod(filename, mode);
+												await fsAsync.chmod(filename, mode);
 												resolve();
 											});
 											stream.on("error", reject);
@@ -218,9 +220,9 @@ const win = nw.Window.get();
 											return
 										}
 										case "directory": {
-											if (!fs.exists(filename))
-												await fs.mkdir(filename, { recursive: true });
-											await fs.chmod(filename, mode);
+											if (!fs.existsSync(filename))
+												await fsAsync.mkdir(filename, { recursive: true });
+											await fsAsync.chmod(filename, mode);
 											break;
 										}
 										default: alert(`Unknown header type: ${type}`);
@@ -251,15 +253,15 @@ const win = nw.Window.get();
 	}
 
 	// Greenworks
-	if (!fs.exists(path.join(sdkPath, "greenworks")))
-		await fs.symlink(path.join(gamePath, "greenworks"), path.join(sdkPath, "greenworks"), "dir");
-	if (!fs.exists(path.join(sdkPath, "steam_appid.txt")))
-		await fs.symlink(path.join(gamePath, "steam_appid.txt"), path.join(sdkPath, "steam_appid.txt"), "file");
+	if (!fs.existsSync(path.join(sdkPath, "greenworks")))
+		await fsAsync.symlink(path.join(gamePath, "greenworks"), path.join(sdkPath, "greenworks"), "dir");
+	if (!fs.existsSync(path.join(sdkPath, "steam_appid.txt")))
+		await fsAsync.symlink(path.join(gamePath, "steam_appid.txt"), path.join(sdkPath, "steam_appid.txt"), "file");
 
 	// Apply updates
 	const updateFile = path.join(sdkPath, "package.nw");
-	if (fs.exists(updateFile)) {
-		await fs.rename(updateFile, gameNWPath);
+	if (fs.existsSync(updateFile)) {
+		await fsAsync.rename(updateFile, gameNWPath);
 	}
 
 	// Launch Screeps with SDK
@@ -274,10 +276,6 @@ const win = nw.Window.get();
 		windowsHide: true
 	});
 	child.unref();
-	await new Promise((resolve, reject) => {
-		child.on("error", reject);
-		setTimeout(resolve, 1000);
-	});
 })().catch(err => {
 	win.show();
 	win.focus();
