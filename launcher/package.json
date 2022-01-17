@@ -13,6 +13,9 @@
 	"dependencies": {
 		"extract-zip": "^2.0.1",
 		"gunzip-stream": "^1.0.1",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2",
+		"rimraf": "^3.0.2",
 		"tar-stream": "^2.2.0",
 		"yauzl": "^2.10.0"
 	}

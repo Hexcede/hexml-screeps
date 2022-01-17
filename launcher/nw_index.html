@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="/icon.png" rel="icon" type="image/png">
 	<link href="vendor/fonts/roboto.css" rel="stylesheet" type="text/css">
-	<title>Screem Modloader</title>
+	<title>Screeps Modloader</title>
 
 	<style>
 		body {
@@ -31,13 +31,54 @@
 			display: hidden;
 			flex-grow: 1;
 		}
+
+		.icon {
+			width: 1.35em;
+			height: 1.35em;
+			margin-right: 1vh;
+		}
+
+		.loading-screen {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
+		.loading-message {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: flex-end;
+		}
+
+		progress[value]::-webkit-progress-bar {
+			border-radius: 0.45em;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+		}
+		progress[value]::-webkit-progress-value {
+			border-radius: 0.45em;
+			background-image:
+				-webkit-linear-gradient(-45deg, 
+										transparent 33%, rgba(0, 0, 0, .1) 33%, 
+										rgba(0,0, 0, .1) 66%, transparent 66%),
+				-webkit-linear-gradient(top, 
+										rgba(255, 255, 255, .25), 
+										rgba(0, 0, 0, .25)),
+				-webkit-linear-gradient(left, rgb(0, 153, 204), rgb(0, 116, 155), rgb(0, 153, 204));
+			background-size: 2em 1em, 100% 100%, 100% 100%;
+		}
+		progress[value] {
+			margin: 0.2em;
+			-webkit-appearance: none;
+			appearance: none;
+			height: 1em;
+			width: 35vw;
+		}
 	</style>
 </head>
 <body>
 	<span class="horizontal-spacer"></span>
-	<font id="status">
-		Please wait a moment...
-	</font>
+	<span id="status-screen"></span>
 	<span class="horizontal-spacer"></span>
 
 	<script src="app.js" async></script>
