@@ -18,7 +18,7 @@ To install the modloader, clone the repository and open a terminal window within
 
 ## Manual Installation
 If the installer does not work and you need to install and run the modloader manually, you can follow the steps below after cloning the repository.
-1. Download the NW.js **SDK** version that matches Screep's NW.js version and your system version (Currently [`v0.40.2`[(https://dl.nwjs.io/v0.40.2/))
+1. Download the NW.js **SDK** version that matches Screep's NW.js version and your system version (Currently [`v0.40.2`](https://dl.nwjs.io/v0.40.2/))
 2. Extract it into the `launcher` folder with the name of the archive (e.g. `nwjs-sdk-v0.40.2-win-x64`)
 3. Run the moadloader (`hexml`)
 
