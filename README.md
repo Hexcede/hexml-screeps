@@ -8,7 +8,7 @@ It additionally only works on the Steam client, it will not and cannot work in t
 
 ## Windows & OSX Support
 This should support Windows and OSX, but, the installer is untested and will most likely be non functional until I have an opportunity to debug other OS paths in more depth.
-You can follow the steps in #manual-installation below to work around any issues, and please feel free to [create a report](/issues)
+You can follow the steps in [Manual Installation](#manual-installation) below to work around any issues, and please feel free to [create a report](/issues)
 
 ## Installation
 To install the modloader, clone the repository and open a terminal window within the 
